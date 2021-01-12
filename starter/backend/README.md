@@ -89,6 +89,71 @@ GET '/categories'
 
 ```
 
+GET '/questions/'
+- Fetches a dictionary of questions in which the keys are the ids and the value is the corresponding string of the category
+- Request Arguments: question id
+- Returns: An object questions with key and value pairs:  
+    {
+      "answer": "Apollo 13", 
+      "category": 5, 
+      "difficulty": 4, 
+      "id": 2, 
+      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    }
+
+DELETE '/questions/<int:question_id>/'
+- Deletes the question id mentioned in the url using curl command :
+     curl -X DELETE http://127.0.0.1:5000/questions/29
+- Request Arguments: None
+- Returns: An jsonify object questions with key and value pairs:  
+    {
+        'success': True,
+        'deleted': question_id,
+        'questions': current_questions,
+        'total_questions': len(selection)
+    }
+
+POST '/questions/'
+- Search question by category id using curl command :
+    curl -X POST -H "Content-Type: application/json" -d "{\"category\":\"3\"}" 
+    http://127.0.0.1:5000/questions/
+-  Request Arguments: category id
+- Returns: An jsonify object questions with key and value pairs:
+            'success': True,
+            'questions': current_questions,
+            'total_questions': len(selection)
+
+POST '/add_questions/'
+- Adds new question using curl command :
+    curl -X POST -H "Content-Type: application/json" 
+    -d "{\"question\":\"What city was the first capital of the United States?\",
+    \"answer\":\"New York\", \"difficulty\":\"1\", \"category\":\"4\"}"
+    http://127.0.0.1:5000/add_questions/
+- Request Arguments: question, answer, difficulty, category
+- Returns: An jsonify object questions with key and value pairs:
+            'success': True,
+            'questions': current_questions,
+            'total_questions': len(selection)
+
+POST '/questions/search'
+- Search question by search term using curl command :
+    curl -X POST -H "Content-Type: application/json" 
+    -d "{\"search\":\"What\"}" http://127.0.0.1:5000/questions/search
+- Request Arguments: search expression
+- Returns: An jsonify object questions with key and value pairs:
+            'success': True,
+            'questions': current_questions,
+            'total_questions': len(selection)
+
+POST '/questions/play_quiz'
+- Play quiz selecting random question by category using curl command :
+    curl -X POST -H "Content-Type: application/json"
+    -d "{\"category\":\"4\"}" http://127.0.0.1:5000/questions/play_quiz
+- Request Arguments: category
+- Returns: An jsonify object questions with key and value pairs:
+            'success': True,
+            'question': question_name,
+            'previous_question': previous_question_name
 
 ## Testing
 To run the tests, run
